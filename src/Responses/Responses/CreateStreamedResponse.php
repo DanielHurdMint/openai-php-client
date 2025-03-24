@@ -122,7 +122,19 @@ final class CreateStreamedResponse implements ResponseContract
                 $outputIndex = $attributes['output_index'];
                 $itemId = $attributes['item_id'];
                 $annotationIndex = $attributes['annotation_index'];
-                $annotation = $attributes['annotation'];
+                switch ($attributes['annotation']['type']) {
+                    case 'file_citation':
+                        $annotation = CreateResponseOutputMessageContentTextAnnotationFileCitation::from(['type' => $attributes['annotation']['type'], 'file_id' => $attributes['annotation']['file_id'] ?? '', 'index' => $attributes['annotation']['index'] ?? 0]);
+                        break;
+                    case 'file_path':
+                        $annotation = CreateResponseOutputMessageContentTextAnnotationFilePath::from(['type' => $attributes['annotation']['type'], 'file_id' => $attributes['annotation']['file_id'] ?? '', 'index' => $attributes['annotation']['index'] ?? 0]);
+                        break;
+                    case 'url_citation':
+                        $annotation = CreateResponseOutputMessageContentTextAnnotationUrlCitation::from(['type' => $attributes['annotation']['type'], 'url' => $attributes['annotation']['url'] ?? '', 'title' => $attributes['annotation']['title'] ?? '', 'start_index' => $attributes['annotation']['start_index'] ?? 0, 'end_index' => $attributes['annotation']['end_index'] ?? 0]);
+                        break;
+                    default:
+                        throw new \Exception('Invalid part type');
+                }
                 break;
             case 'response.output_text.done':
                 $contentIndex = $attributes['content_index'];

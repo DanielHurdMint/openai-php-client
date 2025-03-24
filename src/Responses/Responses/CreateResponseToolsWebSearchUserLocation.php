@@ -8,10 +8,10 @@ final class CreateResponseToolsWebSearchUserLocation
 {
     private function __construct(
         public readonly string $type,
-        public readonly string $city,
-        public readonly string $country,
-        public readonly string $region,
-        public readonly string $timezone,
+        public readonly ?string $city,
+        public readonly ?string $country,
+        public readonly ?string $region,
+        public readonly ?string $timezone,
     ) {}
 
     /**
@@ -21,10 +21,10 @@ final class CreateResponseToolsWebSearchUserLocation
     {
         return new self(
             $attributes['type'],
-            $attributes['city'],
-            $attributes['country'],
-            $attributes['region'],
-            $attributes['timezone'],
+            $attributes['city'] ?? null,
+            $attributes['country'] ?? null,
+            $attributes['region'] ?? null,
+            $attributes['timezone'] ?? null,
         );
     }
 
@@ -41,6 +41,6 @@ final class CreateResponseToolsWebSearchUserLocation
             'timezone' => $this->timezone,
         ];
 
-        return $result;
+        return array_filter($result, fn (mixed $value): bool => ! is_null($value));
     }
 }
