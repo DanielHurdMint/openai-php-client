@@ -20,6 +20,7 @@
   - [Models Resource](#models-resource)
   - [Completions Resource](#completions-resource)
   - [Chat Resource](#chat-resource)
+  - [Responses Resource](#responses-resource)
   - [Audio Resource](#audio-resource)
   - [Embeddings Resource](#embeddings-resource)
   - [Files Resource](#files-resource)
@@ -378,6 +379,58 @@ foreach($stream as $response){
 ```
 
  `usage` is always `null` except for the last chunk which contains the token usage statistics for the entire request.
+
+### `Responses` Resource
+
+#### `create`
+
+Creates a response for the prompt and parameters.
+
+```php
+$response = $client->responses()->create([
+    'model' => 'gpt-4o',
+    'input' => ['role' => 'user', 'content' => 'Hello!'],
+]);
+
+$response->id; // 'resp_67ccd3a9da748190baa7f1570fe91ac604becb25c45c1d41'
+$response->object; // 'response'
+$response->createdAt; // 1741476777
+$response->status; // 'completed'
+$response->model; // 'gpt-4o-2024-08-06'
+
+foreach ($response->output as $result) {
+    $result->type; // 'message'
+    $result->id; // 'msg_67ccd3acc8d48190a77525dc6de64b4104becb25c45c1d41'
+    $result->role; // 'assistant'
+    
+    foreach ($result->content as $content) {
+        $content->type; // 'output_text'
+        $content->text; // 'Hello! How can I help you today?'
+    }
+}
+
+$response->usage->inputTokens; // 328
+$response->usage->outputTokens; // 52
+$response->usage->totalTokens; // 380
+
+$response->toArray(); // ['id' => 'resp_67ccd3a9da748190baa7f1570fe91ac604becb25c45c1d41', ...]
+```
+
+#### `create streamed`
+
+Creates a streamed response for the prompt and parameters.
+
+```php
+$stream = $client->responses()->createStreamed([
+    'model' => 'gpt-4o',
+    'input' => ['role' => 'user', 'content' => 'Hello!'],
+]);
+
+foreach($stream as $response){
+    // Process the streamed response
+    // Each response will contain portions of the complete answer
+}
+```
 
 ### `Audio` Resource
 

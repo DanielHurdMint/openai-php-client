@@ -21,6 +21,7 @@ use OpenAI\Resources\FineTuning;
 use OpenAI\Resources\Images;
 use OpenAI\Resources\Models;
 use OpenAI\Resources\Moderations;
+use OpenAI\Resources\Responses;
 use OpenAI\Resources\Threads;
 use OpenAI\Resources\VectorStores;
 
@@ -53,6 +54,16 @@ final class Client implements ClientContract
     public function chat(): Chat
     {
         return new Chat($this->transporter);
+    }
+
+    /**
+     * Given a chat conversation, the model will return a model response.
+     *
+     * @see https://platform.openai.com/docs/api-reference/responses
+     */
+    public function responses(): Responses
+    {
+        return new Responses($this->transporter);
     }
 
     /**

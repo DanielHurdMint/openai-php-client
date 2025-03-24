@@ -4,6 +4,11 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/)
 and this project adheres to [Semantic Versioning](http://semver.org/).
 
+## Unreleased
+### Added
+- Add tests for Responses API objects
+- Add documentation for Responses API in README.md
+
 ## v0.10.1 (2024-06-06)
 ### Added
 -  Add support for Assistants API v2 and Vector Stores endpoints ([#420](https://github.com/openai-php/client/pull/420))

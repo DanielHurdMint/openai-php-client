@@ -13,7 +13,12 @@ trait Fakeable
      */
     public static function fake(array $override = [], ?MetaInformation $meta = null): static
     {
-        $class = str_replace('Responses\\', 'Testing\\Responses\\Fixtures\\', static::class).'Fixture';
+        $pos = strpos(static::class, 'Responses\\');
+        if ($pos !== false) {
+            $class = substr_replace(static::class, 'Testing\\Responses\\Fixtures\\', $pos, strlen('Responses\\')) . 'Fixture';
+        } else {
+            $class = static::class . 'Fixture';
+        }
 
         return static::from(
             self::buildAttributes($class::ATTRIBUTES, $override),

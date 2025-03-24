@@ -16,6 +16,7 @@ use OpenAI\Contracts\Resources\ImagesContract;
 use OpenAI\Contracts\Resources\ModelsContract;
 use OpenAI\Contracts\Resources\ModerationsContract;
 use OpenAI\Contracts\Resources\ThreadsContract;
+use OpenAI\Contracts\Resources\ResponsesContract;
 use OpenAI\Contracts\Resources\VectorStoresContract;
 
 interface ClientContract
@@ -34,6 +35,13 @@ interface ClientContract
      * @see https://platform.openai.com/docs/api-reference/chat
      */
     public function chat(): ChatContract;
+
+    /**
+     * Given a prompt, the model will return a response.
+     *
+     * @see https://platform.openai.com/docs/api-reference/responses
+     */
+    public function responses(): ResponsesContract;
 
     /**
      * Get a vector representation of a given input that can be easily consumed by machine learning models and algorithms.
