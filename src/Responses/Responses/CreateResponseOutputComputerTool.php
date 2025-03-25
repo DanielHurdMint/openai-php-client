@@ -8,7 +8,6 @@ final class CreateResponseOutputComputerTool
 {
     // TODO: Implement the class for the action and pending safety checks
     /**
-     * @param  'computer_call'  $type
      * @param  array<mixed, mixed>  $action
      * @param  array<int, mixed>  $pendingSafetyChecks
      */
@@ -22,7 +21,7 @@ final class CreateResponseOutputComputerTool
     ) {}
 
     /**
-     * @param  array{type: 'computer_call', id: string, call_id: string, status: string, action: array<mixed, mixed>, pending_safety_checks: array<int, mixed>}  $attributes
+     * @param  array{type: string, id: string, call_id: string, status: string, action: array<mixed, mixed>, pending_safety_checks: array<int, mixed>}  $attributes
      */
     public static function from(array $attributes): self
     {
@@ -37,7 +36,7 @@ final class CreateResponseOutputComputerTool
     }
 
     /**
-     * @return array{type: 'computer_call', id: string, call_id: string, status: string, action: array<mixed, mixed>, pending_safety_checks: array<int, mixed>}
+     * @return array{type: string, id: string, call_id: string, status: string, action: array<mixed, mixed>, pending_safety_checks: array<int, mixed>}
      */
     public function toArray(): array
     {
