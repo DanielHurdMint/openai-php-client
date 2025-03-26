@@ -79,9 +79,13 @@ final class StreamResponse implements ResponseHasMetaInformationContract, Respon
         while (! $stream->eof()) {
             try {
                 $byte = $stream->read(1);
+                if ($byte === '' && $stream->eof()) {
+                    break;
+                }
             } catch (\Exception $e) {
-                continue;
+                break;
             }
+
             if ('' === $byte) {
                 return $buffer;
             }
