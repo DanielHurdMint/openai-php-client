@@ -21,7 +21,6 @@ use OpenAI\Testing\Resources\FineTuningTestResource;
 use OpenAI\Testing\Resources\ImagesTestResource;
 use OpenAI\Testing\Resources\ModelsTestResource;
 use OpenAI\Testing\Resources\ModerationsTestResource;
-use OpenAI\Testing\Resources\ResponsesTestResource;
 use OpenAI\Testing\Resources\ThreadsTestResource;
 use OpenAI\Testing\Resources\VectorStoresTestResource;
 use PHPUnit\Framework\Assert as PHPUnit;
@@ -40,7 +39,7 @@ class ClientFake implements ClientContract
     public function __construct(protected array $responses = []) {}
 
     /**
-     * @param  array<array-key, Response>  $responses
+     * @param  array<array-key, ResponseContract|StreamResponse|string>  $responses
      */
     public function addResponses(array $responses): void
     {
@@ -141,11 +140,6 @@ class ClientFake implements ClientContract
     public function chat(): ChatTestResource
     {
         return new ChatTestResource($this);
-    }
-
-    public function responses(): ResponsesTestResource
-    {
-        return new ResponsesTestResource($this);
     }
 
     public function embeddings(): EmbeddingsTestResource
